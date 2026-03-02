@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cpqq5uv8e5dbk"]
+
+[ext_resource type="Script" uid="uid://bbm8gmsj1crg0" path="res://Scripts/Camera/FreeCam.cs" id="1_merrj"]
+[ext_resource type="Script" uid="uid://bht23ptlms54m" path="res://Scripts/WorldGeneration/WorldManager.cs" id="1_owq0f"]
+[ext_resource type="Script" uid="uid://blxhg0e6ppoa3" path="res://Scripts/WorldGeneration/SeedControllerUI.cs" id="3_a82ef"]
+
+[node name="GameOverlord" type="Node2D" unique_id=1507489134]
+
+[node name="WorldManager" type="Node" parent="." unique_id=533505755]
+script = ExtResource("1_owq0f")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=161218630]
+zoom = Vector2(0.25, 0.25)
+script = ExtResource("1_merrj")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1503185587]
+
+[node name="SeedControllerUI" type="Control" parent="UI" unique_id=974471544 node_paths=PackedStringArray("_seedLineEdit", "_randomiseButton", "_regenerateButton", "_worldManger")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_a82ef")
+_seedLineEdit = NodePath("HBoxContainer/SeedLineEdit")
+_randomiseButton = NodePath("HBoxContainer/RandomiseButton")
+_regenerateButton = NodePath("HBoxContainer/RegenerateButton")
+_worldManger = NodePath("../../WorldManager")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/SeedControllerUI" unique_id=2072696855]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 12
+
+[node name="SeedLabel" type="Label" parent="UI/SeedControllerUI/HBoxContainer" unique_id=1752902109]
+layout_mode = 2
+text = "Seed:"
+
+[node name="SeedLineEdit" type="LineEdit" parent="UI/SeedControllerUI/HBoxContainer" unique_id=1028196188]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="RegenerateButton" type="Button" parent="UI/SeedControllerUI/HBoxContainer" unique_id=534083552]
+layout_mode = 2
+text = "Regenerate"
+
+[node name="RandomiseButton" type="Button" parent="UI/SeedControllerUI/HBoxContainer" unique_id=1134225208]
+layout_mode = 2
+text = "Randomise"
