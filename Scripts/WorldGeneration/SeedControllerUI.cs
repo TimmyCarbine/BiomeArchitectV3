@@ -16,7 +16,14 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         {
             TerrainWidthTiles = 256,
             TerrainHeightTiles = 128,
-            WrapX = true
+            WrapX = true,
+            Region = new RegionConfig
+            {
+                SkyMin01 = 0.25f,
+                SkyMax01 = 0.40f,
+                SurfaceMin01 = 0.15f,
+                SurfaceMax01 = 0.30f
+            }
         };
 
 
@@ -37,9 +44,6 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         private void OnRandomisePressed()
         {
             int s = (int)GD.Randi();
-            if (s < WorldConstants.MIN_WORLD_SEED)
-                s = WorldConstants.MIN_WORLD_SEED;
-
             _seedLineEdit.Text = s.ToString();
             _worldManger.Regenerate(_config, s);
         }

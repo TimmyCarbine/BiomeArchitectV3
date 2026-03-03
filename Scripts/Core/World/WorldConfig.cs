@@ -14,5 +14,7 @@ namespace BiomeArchitectV3.Scripts.Core.World
         public int StreamRadiusChunksY { get; init; } = 2;
 
         public Vector2I TerrainTilesSizePx { get; init; } = new Vector2I(32, 32);
+
+        public RegionConfig Region { get; init; } = new RegionConfig();
     }
 }

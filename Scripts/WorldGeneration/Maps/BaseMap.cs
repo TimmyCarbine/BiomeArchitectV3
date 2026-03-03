@@ -1,6 +1,6 @@
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 {
-    public abstract class BaseMap2D<T>
+    public abstract class BaseMap<T>
     {
         public int Width { get; }
         public int Height { get; }
@@ -10,7 +10,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 
 
 
-        protected BaseMap2D(int width, int height, bool wrapX)
+        protected BaseMap(int width, int height, bool wrapX)
         {
             Width = width;
             Height = height;

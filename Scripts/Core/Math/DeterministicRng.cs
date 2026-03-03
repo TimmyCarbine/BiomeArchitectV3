@@ -2,15 +2,15 @@ namespace BiomeArchitectV3.Scripts.Core.Math
 {
     public struct DeterministicRng(int seed)
     {
-        private int _state = seed;
+        private uint _state = seed != 0 ? (uint)seed : 0x6D2B79F5u;
 
 
 
-        public int NextInt()
+        public uint NextUInt()
         {
             unchecked
             {
-                int x = _state;
+                uint x = _state;
                 x ^= x << 13;
                 x ^= x >> 17;
                 x ^= x << 5;
@@ -22,26 +22,32 @@ namespace BiomeArchitectV3.Scripts.Core.Math
 
 
 
+        public int NextInt()
+        {
+            unchecked
+            {
+                return (int)NextUInt();
+            }
+        }
+
+
+
         public int Range(int minInclusive, int maxExclusive)
         {
             if (maxExclusive <= minInclusive)
                 return minInclusive;
 
-            int span = maxExclusive - minInclusive;
+            uint span = (uint)(maxExclusive - minInclusive);
 
-            int v = NextInt();
-            if (v < 0) v = ~v;
-
-            return minInclusive + (v % span);
+            uint v = NextUInt();
+            return minInclusive + (int)(v % span);
         }
 
 
 
         public float NextFloat01()
         {
-            int v = NextInt();
-            if (v < 0) v = ~v;
-            return (v & 0x00FFFFFF) / 166777215f;
+            return NextUInt() * (1f / 4294967296f);
         }
 
 

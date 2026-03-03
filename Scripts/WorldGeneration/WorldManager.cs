@@ -17,25 +17,22 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         public override void _Ready()
         {
             _phases.Clear();
-            _phases.Add(new Phases.BuildRegionMap());
-            _phases.Add(new Phases.SelectBiomes());
-            _phases.Add(new Phases.SeedBiomes());
-            _phases.Add(new Phases.BuildBiomeMap());
+            _phases.Add(new Phases.RegionMapPhase());
+            _phases.Add(new Phases.SelectBiomesPhase());
+            _phases.Add(new Phases.SeedBiomesPhase());
+            _phases.Add(new Phases.BiomeMapPhase());
         }
 
 
 
         public PhaseContext Regenerate(WorldConfig config, int seedValue)
         {
-            if (seedValue < WorldConstants.MIN_WORLD_SEED)
-                seedValue = WorldConstants.MIN_WORLD_SEED;
-
             var seed = new WorldSeed(seedValue);
             var context = new PhaseContext(config, seed);
 
             GD.Print($"[BAV3] ========================= REGENERATE =========================");
             GD.Print($"[BAV3] World Seed = {seedValue}");
-            GD.Print($"[BAV3] World = {config.TerrainWidthTiles}x{config.TerrainHeightTiles} tiles | WrapX={config.WrapX}");
+            GD.Print($"[BAV3] World = {config.TerrainWidthTiles} x {config.TerrainHeightTiles} tiles | WrapX={config.WrapX}");
 
             foreach (var phase in _phases)
             {

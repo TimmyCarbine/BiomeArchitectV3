@@ -4,9 +4,9 @@ using BiomeArchitectV3.Scripts.Core.World;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 {
-    public sealed class SeedBiomes : GenerationPhase
+    public sealed class SeedBiomesPhase : GenerationPhase
     {
-        public override string Name => "SeedBiomes";
+        public override string Name => "SeedBiomesPhase";
         public override string StreamLabel => WorldSeedStreams.BIOME_SEEDS;
 
         public override void Execute(PhaseContext context, DeterministicRng rng)
