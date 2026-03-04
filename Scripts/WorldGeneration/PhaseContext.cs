@@ -1,4 +1,5 @@
 using BiomeArchitectV3.Scripts.Core.World;
+using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration
@@ -14,6 +15,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         public BiomeMap BiomeMap { get; }
         public HeightMap HeightMap { get; }
         public SolidMap SolidMap { get; }
+
+        public BiomeSelectionResult SelectedBiomes { get; set; } = null!;
 
 
 
