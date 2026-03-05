@@ -7,12 +7,6 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class RegionMapBuilder
     {
-        public const int REGION_SKY = 0;
-        public const int REGION_SURFACE = 1;
-        public const int REGION_UNDERGROUND = 2;
-
-
-
         public static void Build(WorldConfig config, RegionMap outMap, DeterministicRng rng)
         {
             int width = config.TerrainWidthTiles;
@@ -37,10 +31,10 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
             for (int y = 0; y < height; y++)
             {
-                int region =
-                    y < surfaceBoundary ? REGION_SKY :
-                    y < undergroundBoundary ? REGION_SURFACE :
-                    REGION_UNDERGROUND;
+                RegionId region =
+                    y < surfaceBoundary ? RegionId.Sky :
+                    y < undergroundBoundary ? RegionId.Surface :
+                    RegionId.Underground;
 
                 for (int x = 0; x < width; x++)
                     outMap.Set(x, y, region);

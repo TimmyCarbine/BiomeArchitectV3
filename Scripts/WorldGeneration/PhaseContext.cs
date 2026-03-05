@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
@@ -11,12 +12,14 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
 
         public PhaseTimings Timings { get; } = new PhaseTimings();
 
-        public RegionMap RegionMap { get; }
+        public RegionMap RegionMap { get; } = null!;
         public BiomeMap BiomeMap { get; }
         public HeightMap HeightMap { get; }
         public SolidMap SolidMap { get; }
 
         public BiomeSelectionResult SelectedBiomes { get; set; } = null!;
+        public List<BiomeSeed> BiomeSeeds { get; } = [];
+
 
 
 

@@ -21,17 +21,17 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
             for (int y = 0; y < height; y++)
             {
-                int r = context.RegionMap.Get(0, y);
+                RegionId r = context.RegionMap.Get(0, y);
 
-                if (r == RegionMapBuilder.REGION_SKY)
+                if (r == RegionId.Sky)
                     sky++;
-                else if (r == RegionMapBuilder.REGION_SURFACE)
+                else if (r == RegionId.Surface)
                     surface++;
                 else
                     underground++;
             }
 
-            GD.Print($"[BAV3] Regions: Sky = {sky} ({(sky / (float)height):P0}) | " +
+            GD.Print($"[BAV3] Regions: Sky = {sky} ({sky / (float)height:P0}) | " +
                                       $"Surface = {surface} ({surface / (float)height:P0}) | " +
                                       $"Underground = {underground} ({underground / (float)height:P0})");
         }
