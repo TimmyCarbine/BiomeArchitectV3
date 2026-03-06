@@ -10,7 +10,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         [Export] private Button _regenerateButton = null!;
         [Export] private WorldManager _worldManger = null!;
 
-        private const int DEFAULT_SEED = -2047984490;
+        private const int DEFAULT_SEED = -2047984490; // -1633255524 All seeds clumped together
 
         private readonly WorldConfig _config = new WorldConfig
         {
@@ -22,7 +22,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
                 SkyMin01 = 0.25f,
                 SkyMax01 = 0.40f,
                 SurfaceMin01 = 0.15f,
-                SurfaceMax01 = 0.30f
+                SurfaceMax01 = 0.25f
             }
         };
 

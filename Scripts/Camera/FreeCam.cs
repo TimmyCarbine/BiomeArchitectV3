@@ -13,8 +13,8 @@ namespace BiomeArchitectV3.Scripts.Camera
         private const float ZOOM_MIN = 0.01f;
         private const float ZOOM_MAX = 5f;
 
-        [Export] public Vector2 StartPos { get; set; } = Vector2.Zero;
-        [Export] public Vector2 StartZoom { get; set; } = new Vector2(0.25f, 0.25f);
+        [Export] public Vector2 StartPos { get; set; } = new Vector2(4096f, 2048f);
+        [Export] public Vector2 StartZoom { get; set; } = new Vector2(0.22f, 0.22f);
 
 
 
