@@ -7,7 +7,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class RegionMapBuilder
     {
-        public static void Build(WorldConfig config, RegionMap outMap, DeterministicRng rng)
+        public static void Build(WorldConfig config, RegionMap regionMap, DeterministicRng rng)
         {
             int width = config.TerrainWidthTiles;
             int height = config.TerrainHeightTiles;
@@ -37,7 +37,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
                     RegionId.Underground;
 
                 for (int x = 0; x < width; x++)
-                    outMap.Set(x, y, region);
+                    regionMap.Set(x, y, region);
             }
         }
 

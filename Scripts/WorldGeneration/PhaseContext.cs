@@ -5,33 +5,19 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration
 {
-    public sealed class PhaseContext
+    public sealed class PhaseContext(WorldConfig config, WorldSeed seed)
     {
-        public WorldConfig Config { get; }
-        public WorldSeed Seed { get; }
+        public WorldConfig Config { get; } = config;
+        public WorldSeed Seed { get; } = seed;
 
         public PhaseTimings Timings { get; } = new PhaseTimings();
 
-        public RegionMap RegionMap { get; } = null!;
-        public BiomeMap BiomeMap { get; }
-        public HeightMap HeightMap { get; }
-        public SolidMap SolidMap { get; }
+        public RegionMap RegionMap { get; } = new RegionMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
+        public BiomeMap BiomeMap { get; } = new BiomeMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
+        public HeightMap HeightMap { get; } = new HeightMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
+        public SolidMap SolidMap { get; } = new SolidMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
 
         public BiomeSelectionResult SelectedBiomes { get; set; } = null!;
         public List<BiomeSeed> BiomeSeeds { get; } = [];
-
-
-
-
-        public PhaseContext(WorldConfig config, WorldSeed seed)
-        {
-            Config = config;
-            Seed = seed;
-
-            RegionMap = new RegionMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
-            BiomeMap = new BiomeMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
-            HeightMap = new HeightMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
-            SolidMap = new SolidMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
-        }
     }
 }

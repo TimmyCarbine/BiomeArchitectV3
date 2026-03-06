@@ -1,6 +1,7 @@
 using Godot;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
+using BiomeArchitectV3.Scripts.WorldGeneration.Builders;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 {
@@ -11,14 +12,19 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
         public override void Execute(PhaseContext context, DeterministicRng rng)
         {
-            for (int y = 0; y < context.Config.TerrainHeightTiles; y++)
+            if (context.RegionMap == null)
             {
-                for (int x = 0; x < context.Config.TerrainWidthTiles; x++)
-                {
-                    int biomeIndex = (x / 32 + y / 32 + (rng.Range(0, 2))) % 4;
-                }
+                GD.PushError("[BAV3] BiomeMapPhase: RegionMap is null.");
+                return;
             }
 
+            if (context.BiomeSeeds.Count == 0)
+            {
+                GD.PushError("[BAV3] BiomeMapPhase: BiomeSeeds is empty.");
+                return;
+            }
+
+            BiomeMapBuilder.Build(context.Config, context.RegionMap, context.BiomeMap, context.BiomeSeeds);
             GD.Print("[BAV3] BiomeMap created");
         }
     }
