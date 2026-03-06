@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Godot;
@@ -8,9 +9,14 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
 {
     public sealed partial class WorldManager : Node
     {
-        private readonly List<GenerationPhase> _phases = new();
+        private readonly List<GenerationPhase> _phases = [];
 
         public PhaseContext LastContext { get; private set; } = null!;
+
+
+
+
+        public event Action<PhaseContext> WorldRegenerated = delegate { };
 
 
 
@@ -49,6 +55,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
             }
 
             LastContext = context;
+            WorldRegenerated.Invoke(context);
+
             GD.Print("[BAV3] ==============================================================");
 
             return context;
