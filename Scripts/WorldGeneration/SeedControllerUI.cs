@@ -14,8 +14,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
 
         private readonly WorldConfig _config = new WorldConfig
         {
-            TerrainWidthTiles = 256,
-            TerrainHeightTiles = 128,
+            TerrainWidthTiles = 1024,
+            TerrainHeightTiles = 512,
             WrapX = true,
             Region = new RegionConfig
             {

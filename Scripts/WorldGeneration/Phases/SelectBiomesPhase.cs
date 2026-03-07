@@ -1,9 +1,10 @@
+using System.Linq;
 using Godot;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Builders;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
-using System.Linq;
+using BiomeArchitectV3.Scripts.WorldGeneration.Helpers;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 {
@@ -14,13 +15,12 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
         public override void Execute(PhaseContext context, DeterministicRng rng)
         {
-            int sky = rng.Range(3, 5);
-            int surface = rng.Range(4, 7);
-            int underground = rng.Range(4, 7);
-
             var registry = new BiomeRegistry();
 
-            var selection = BiomeSelector.SelectBiomes(rng, registry, sky, surface, underground);
+            RegionBiomeCounts counts = RegionBiomeCountCalculator.Calculate(context.RegionMap, rng);
+            context.SelectedBiomeCounts = counts;
+
+            var selection = BiomeSelector.SelectBiomes(rng, registry, counts.Sky, counts.Surface, counts.Underground);
             context.SelectedBiomes = selection;
 
             PrintSelectionWithRarity(selection, registry);
@@ -72,7 +72,13 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
                 GD.Print($"[BAV3] | {skyStr,-36} | {surfStr,-36} | {underStr,-36} |");
             }
 
-            GD.Print("[BAV3] ----------------------------------------------------------------------------------------------------------------------"); 
+            string skyTotalStr = $"Total Sky: {biomes.Sky.Count,3}";
+            string surfaceTotalStr = $"Total Surface: {biomes.Surface.Count,3}";
+            string undergroundTotalStr = $"Total Underground: {biomes.Underground.Count,3}";
+
+            GD.Print("[BAV3] ----------------------------------------------------------------------------------------------------------------------");
+            GD.Print($"[BAV3] | {skyTotalStr,31}      | {surfaceTotalStr,31}      | {undergroundTotalStr,31}      |");
+            GD.Print("[BAV3] ----------------------------------------------------------------------------------------------------------------------");
         }
     }
 }

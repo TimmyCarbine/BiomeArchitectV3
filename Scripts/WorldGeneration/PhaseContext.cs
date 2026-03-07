@@ -17,6 +17,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         public HeightMap HeightMap { get; } = new HeightMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
         public SolidMap SolidMap { get; } = new SolidMap(config.TerrainWidthTiles, config.TerrainHeightTiles, config.WrapX);
 
+        public RegionBiomeCounts SelectedBiomeCounts { get; set; } = null!;
         public BiomeSelectionResult SelectedBiomes { get; set; } = null!;
         public List<BiomeSeed> BiomeSeeds { get; } = [];
     }
