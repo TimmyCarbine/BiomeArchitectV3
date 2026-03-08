@@ -1,5 +1,6 @@
 using System.Linq;
 using Godot;
+using BiomeArchitectV3.Scripts.Debug;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Builders;
@@ -13,11 +14,11 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         public override string Name => "SelectBiomesPhase";
         public override string StreamLabel => WorldSeedStreams.BIOMES;
 
-        public override void Execute(PhaseContext context, DeterministicRng rng)
+        public override void Execute(PhaseContext context, U_DetermRng rng)
         {
             var registry = new BiomeRegistry();
 
-            RegionBiomeCounts counts = RegionBiomeCountHelper.Calculate(context.RegionMap, rng);
+            RegionBiomeCounts counts = U_BiomeCount.Calculate(context.RegionMap, rng);
             context.SelectedBiomeCounts = counts;
 
             var selection = BiomeSelector.SelectBiomes(rng, registry, counts.Sky, counts.Surface, counts.Underground);
@@ -38,7 +39,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             float surfaceTotal = surfacePool.Sum(x => x.SelectionWeight);
             float undergroundTotal = undergroundPool.Sum(x => x.SelectionWeight);
 
-            GD.Print("[BAV3] | --------------- Sky ---------------- | -------------- Surface ------------- | ------------ Underground ----------- |");     
+            BavLogger.Init("| --------------- Sky ---------------- | -------------- Surface ------------- | ------------ Underground ----------- |");     
 
             int max = Mathf.Max(biomes.Sky.Count, Mathf.Max(biomes.Surface.Count, biomes.Underground.Count));
 
@@ -69,16 +70,16 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
                     underStr = $"{b.Id,-24} {p,5:0.#}%";
                 }
 
-                GD.Print($"[BAV3] | {skyStr,-36} | {surfStr,-36} | {underStr,-36} |");
+                BavLogger.Init($"| {skyStr,-36} | {surfStr,-36} | {underStr,-36} |");
             }
 
             string skyTotalStr = $"Total Sky: {biomes.Sky.Count,3}";
             string surfaceTotalStr = $"Total Surface: {biomes.Surface.Count,3}";
             string undergroundTotalStr = $"Total Underground: {biomes.Underground.Count,3}";
 
-            GD.Print("[BAV3] ----------------------------------------------------------------------------------------------------------------------");
-            GD.Print($"[BAV3] | {skyTotalStr,31}      | {surfaceTotalStr,31}      | {undergroundTotalStr,31}      |");
-            GD.Print("[BAV3] ----------------------------------------------------------------------------------------------------------------------");
+            BavLogger.Init("----------------------------------------------------------------------------------------------------------------------");
+            BavLogger.Init($"| {skyTotalStr,31}      | {surfaceTotalStr,31}      | {undergroundTotalStr,31}      |");
+            BavLogger.Init("----------------------------------------------------------------------------------------------------------------------");
         }
     }
 }

@@ -1,4 +1,4 @@
-using Godot;
+using BiomeArchitectV3.Scripts.Debug;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Builders;
@@ -10,7 +10,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         public override string Name => "RegionMapPhase";
         public override string StreamLabel => WorldSeedStreams.REGIONS;
 
-        public override void Execute(PhaseContext context, DeterministicRng rng)
+        public override void Execute(PhaseContext context, U_DetermRng rng)
         {
             RegionMapBuilder.Build(context.Config, context.RegionMap, rng);
 
@@ -31,7 +31,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
                     underground++;
             }
 
-            GD.Print($"[BAV3] Regions: Sky = {sky} ({sky / (float)height:P0}) | " +
+            BavLogger.Init($"[BAV3] Regions: Sky = {sky} ({sky / (float)height:P0}) | " +
                                       $"Surface = {surface} ({surface / (float)height:P0}) | " +
                                       $"Underground = {underground} ({underground / (float)height:P0})");
         }

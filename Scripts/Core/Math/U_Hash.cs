@@ -3,7 +3,7 @@ using System.Text;
 
 namespace BiomeArchitectV3.Scripts.Core.Math
 {
-    public static class HashUtil
+    public static class U_Hash
     {
         // FNV-1a 32-bit
         public static int Fnv1a32(string s)

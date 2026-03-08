@@ -4,12 +4,12 @@ using BiomeArchitectV3.Scripts.WorldGeneration;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {
-    public sealed partial class GenerationDebugRenderer : Node2D
+    public sealed partial class D_GenRenderer : Node2D
     {
         [Export] public bool DebugEnabled { get; set; } = true;
         [Export] private NodePath _worldManagerPath { get; set; } = null!;
 
-        private readonly List<GenerationDebugLayer> _layers = [];
+        private readonly List<D_GenLayer> _layers = [];
         private WorldManager _worldManager = null!;
 
 
@@ -43,7 +43,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
             Visible = true;
 
-            foreach (GenerationDebugLayer layer in _layers)
+            foreach (D_GenLayer layer in _layers)
             {
                 layer.RebuildLayer(context);
             }
@@ -53,7 +53,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
         public void ClearAll()
         {
-            foreach (GenerationDebugLayer layer in _layers)
+            foreach (D_GenLayer layer in _layers)
             {
                 layer.ClearLayer();
             }
@@ -84,7 +84,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
             foreach (Node child in GetChildren())
             {
-                if (child is GenerationDebugLayer layer)
+                if (child is D_GenLayer layer)
                 {
                     _layers.Add(layer);
                 }
@@ -97,7 +97,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
         {
             if (_worldManagerPath == null || _worldManagerPath.IsEmpty)
             {
-                GD.PrintErr("[BAV3] [GenerationDebugRenderer] - WorldManager path is not assigned");
+                BavLogger.Error("WorldManager path is not assigned");
                 return;
             }
 
@@ -105,7 +105,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
             if (_worldManager == null)
             {
-                GD.PrintErr("[BAV3] [GenerationDebugRenderer] - Failed to resolve WorldManager");
+                BavLogger.Error("Failed to resolve WorldManager");
             }
         }
 

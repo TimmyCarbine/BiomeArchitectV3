@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 {
-    public sealed partial class DebugBiomeSeedRenderer : GenerationDebugLayer
+    public sealed partial class D_BiomeSeedRenderer : D_GenLayer
     {
-        [Export] public float MarkerRadius { get; set; } = 12.0f;
+        [Export] public float MarkerRadius { get; set; } = 24.0f;
         [Export] public bool DrawOutline { get; set; } = true;
         [Export] public float OutlineRadiusOffset { get; set; } = 2.0f;
         [Export] public float ColourAlpha { get; set; } = 0.9f;
@@ -37,7 +37,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
                 float worldX = (seed.Position.X + 0.5f) * tileSize.X;
                 float worldY = (seed.Position.Y + 0.5f) * tileSize.Y;
 
-                Color fillColour = DebugColourHasher.FromString(seed.Biome.Id, ColourAlpha);
+                Color fillColour = D_ColourHasher.FromString(seed.Biome.Id, ColourAlpha);
 
                 _seedEntries.Add(new SeedDrawEntry(new Vector2(worldX, worldY), fillColour));
             }

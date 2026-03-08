@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Godot;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.Core.Math;
+using BiomeArchitectV3.Scripts.Debug;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration
 {
@@ -36,29 +37,28 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
             var seed = new WorldSeed(seedValue);
             var context = new PhaseContext(config, seed);
 
-            GD.Print($"[BAV3] ========================= REGENERATE =========================");
-            GD.Print($"[BAV3] World Seed = {seedValue}");
-            GD.Print($"[BAV3] World = {config.TerrainWidthTiles} x {config.TerrainHeightTiles} tiles | WrapX={config.WrapX}");
+            BavLogger.Init($"========================= REGENERATE =========================");
+            BavLogger.Init($"World Seed = {seedValue}");
+            BavLogger.Init($"World = {config.TerrainWidthTiles} x {config.TerrainHeightTiles} tiles | WrapX={config.WrapX}");
 
             foreach (var phase in _phases)
             {
                 var timer = Stopwatch.StartNew();
-                GD.Print($"[BAV3] ------------ {phase.Name} ------------");
+                BavLogger.Init($"------------ {phase.Name} ------------");
                 int streamSeed = context.Seed.Derive(phase.StreamLabel);
-                var rng = new DeterministicRng(streamSeed);
-                GD.Print($"[BAV3] Stream = {phase.StreamLabel} | StreamSeed = {streamSeed}");
+                var rng = new U_DetermRng(streamSeed);
+                BavLogger.Init($"Stream = {phase.StreamLabel} | StreamSeed = {streamSeed}");
                 phase.Execute(context, rng);
                 timer.Stop();
 
                 context.Timings.Set(phase.Name, timer.ElapsedMilliseconds);
-                GD.Print($"[BAV3] Phase: {phase.Name} => {timer.ElapsedMilliseconds} ms");
+                BavLogger.Init($"Phase: {phase.Name} => {timer.ElapsedMilliseconds} ms");
             }
 
             LastContext = context;
             WorldRegenerated.Invoke(context);
 
-            GD.Print("[BAV3] ==============================================================");
-
+            BavLogger.Init($"==============================================================");
             return context;
         }
     }

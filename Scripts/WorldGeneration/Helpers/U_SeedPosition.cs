@@ -7,9 +7,9 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 {
-    public static class BiomeSeedPlacementHelper
+    public static class U_SeedPosition
     {
-        public static Vector2I FindSeedPosition(PhaseContext context, DeterministicRng rng, BiomeDef biome, IReadOnlyList<Vector2I> candidates)
+        public static Vector2I FindSeedPosition(PhaseContext context, U_DetermRng rng, BiomeDef biome, IReadOnlyList<Vector2I> candidates)
         {
             bool found = false;
             int bestScore = int.MinValue;

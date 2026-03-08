@@ -10,7 +10,7 @@ namespace BiomeArchitectV3.Scripts.Core.World
 
         public int Derive(string streamLabel)
         {
-            return HashUtil.Combine(Value, streamLabel);
+            return U_Hash.Combine(Value, streamLabel);
         }
     }
 }

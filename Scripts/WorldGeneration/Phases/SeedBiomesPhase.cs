@@ -1,4 +1,5 @@
 using Godot;
+using BiomeArchitectV3.Scripts.Debug;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
@@ -14,11 +15,11 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
 
 
-        public override void Execute(PhaseContext context, DeterministicRng rng)
+        public override void Execute(PhaseContext context, U_DetermRng rng)
         {
             if (context.SelectedBiomes == null)
             {
-                GD.PushError("[BAV3] [SeedBiomesPhase] [Execute] - SelectedBiomes is null.");
+                BavLogger.Error("SelectedBiomes is null.");
                 return;
             }
 
@@ -28,12 +29,12 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             SeedRegion(context, rng, context.SelectedBiomes.Surface, RegionId.Surface);
             SeedRegion(context, rng, context.SelectedBiomes.Underground, RegionId.Underground);
 
-            GD.Print($"[BAV3] [SeedBiomesPhase] [Execute] - Placed {context.BiomeSeeds.Count} seeds");
+            BavLogger.Init($"[BAV3] [SeedBiomesPhase] [Execute] - Placed {context.BiomeSeeds.Count} seeds");
         }
 
 
 
-        private static void SeedRegion( PhaseContext context, DeterministicRng rng, IReadOnlyList<BiomeDef> biomes, RegionId region)
+        private static void SeedRegion( PhaseContext context, U_DetermRng rng, IReadOnlyList<BiomeDef> biomes, RegionId region)
         {
             List<BiomeDef> orderedBiomes = [.. biomes];
             List<Vector2I> candidates = context.RegionMap.GetCoordsForRegion(region);
@@ -41,7 +42,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             for (int i = 0; i < orderedBiomes.Count; i++)
             {
                 BiomeDef biome = orderedBiomes[i];
-                Vector2I position = BiomeSeedPlacementHelper.FindSeedPosition(context, rng, biome, candidates);
+                Vector2I position = U_SeedPosition.FindSeedPosition(context, rng, biome, candidates);
                 BiomeSeed seed = new BiomeSeed(biome, position);
                 context.BiomeSeeds.Add(seed);
 
@@ -53,7 +54,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
         private static void PrintSeedWithLocation(BiomeDef biome, Vector2I position)
         {
-            GD.Print($"[BAV3] [SeedBiomesPhase] [SeedRegion] - {biome.Region,-11} | {biome.Id,-22} @ {position}");
+            BavLogger.Init($"[BAV3] [SeedBiomesPhase] [SeedRegion] - {biome.Region,-11} | {biome.Id,-22} @ {position}");
         }
     }
 }

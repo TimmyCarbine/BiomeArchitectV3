@@ -1,6 +1,6 @@
 namespace BiomeArchitectV3.Scripts.Core.Math
 {
-    public struct DeterministicRng(int seed)
+    public struct U_DetermRng(int seed)
     {
         private uint _state = seed != 0 ? (uint)seed : 0x6D2B79F5u;
 

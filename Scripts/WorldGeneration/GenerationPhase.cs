@@ -9,6 +9,6 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
 
 
 
-        public abstract void Execute(PhaseContext context, DeterministicRng rng);
+        public abstract void Execute(PhaseContext context, U_DetermRng rng);
     }
 }

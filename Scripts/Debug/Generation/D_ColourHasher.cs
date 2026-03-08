@@ -3,7 +3,7 @@ using Godot;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {
-    public static class DebugColourHasher
+    public static class D_ColourHasher
     {
         public static Color FromString(string id, float alpha = 0.75f)
         {
@@ -12,8 +12,8 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
                 return new Color(0f, 0f, 0f, 0f);
             }
 
-            int hash = HashUtil.Fnv1a32(id);
-            hash = HashUtil.Mix(hash);
+            int hash = U_Hash.Fnv1a32(id);
+            hash = U_Hash.Mix(hash);
 
             unchecked
             {

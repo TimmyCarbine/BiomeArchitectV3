@@ -3,7 +3,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {
-    public abstract partial class GenerationDebugLayer : Node2D
+    public abstract partial class D_GenLayer : Node2D
     {
         [Export] public bool IsLayerEnabled { get; set; } = true;
 

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bbm8gmsj1crg0" path="res://Scripts/Camera/FreeCam.cs" id="1_merrj"]
 [ext_resource type="Script" uid="uid://bht23ptlms54m" path="res://Scripts/WorldGeneration/WorldManager.cs" id="1_owq0f"]
-[ext_resource type="Script" uid="uid://mqlo882ypv08" path="res://Scripts/Debug/Generation/GenerationDebugRenderer.cs" id="2_miotj"]
+[ext_resource type="Script" uid="uid://s2fpxesujq1s" path="res://Scripts/Debug/Generation/D_GenRenderer.cs" id="2_mq2eh"]
 [ext_resource type="Script" uid="uid://blxhg0e6ppoa3" path="res://Scripts/WorldGeneration/SeedControllerUI.cs" id="3_a82ef"]
-[ext_resource type="Script" uid="uid://bpnv2vokdf0h3" path="res://Scripts/Debug/Generation/Layers/DebugRegionMapRenderer.cs" id="3_mq2eh"]
-[ext_resource type="Script" uid="uid://d16np5sc8gt46" path="res://Scripts/Debug/Generation/Layers/DebugBiomeMapRenderer.cs" id="3_r0itm"]
-[ext_resource type="Script" uid="uid://b8eqof62hesmw" path="res://Scripts/Debug/Generation/Layers/DebugBiomeSeedRenderer.cs" id="4_r0itm"]
+[ext_resource type="Script" uid="uid://d3r457u3lhdup" path="res://Scripts/Debug/Generation/Layers/D_RegionMapRenderer.cs" id="3_q3s66"]
+[ext_resource type="Script" uid="uid://cbxgvotigwak6" path="res://Scripts/Debug/Generation/Layers/D_BiomeMapRenderer.cs" id="4_4ibya"]
+[ext_resource type="Script" uid="uid://bd40g15hcyrdd" path="res://Scripts/Debug/Generation/Layers/D_BiomeSeedRenderer.cs" id="5_f2hfv"]
 
 [node name="GameOverlord" type="Node2D" unique_id=1507489134]
 
@@ -14,17 +14,17 @@
 script = ExtResource("1_owq0f")
 
 [node name="GenerationDebugRenderer" type="Node2D" parent="." unique_id=470613464]
-script = ExtResource("2_miotj")
+script = ExtResource("2_mq2eh")
 _worldManagerPath = NodePath("../WorldManager")
 
 [node name="DebugRegionMapRenderer" type="Node2D" parent="GenerationDebugRenderer" unique_id=1928158152]
-script = ExtResource("3_mq2eh")
+script = ExtResource("3_q3s66")
 
 [node name="DebugBiomeMapRenderer" type="Node2D" parent="GenerationDebugRenderer" unique_id=2091866437]
-script = ExtResource("3_r0itm")
+script = ExtResource("4_4ibya")
 
 [node name="DebugBiomeSeedRenderer" type="Node2D" parent="GenerationDebugRenderer" unique_id=1848694106]
-script = ExtResource("4_r0itm")
+script = ExtResource("5_f2hfv")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=161218630]
 zoom = Vector2(0.25, 0.25)

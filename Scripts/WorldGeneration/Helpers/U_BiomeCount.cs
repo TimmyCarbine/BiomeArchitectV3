@@ -7,7 +7,7 @@ using Godot;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 {
-    public static class RegionBiomeCountHelper
+    public static class U_BiomeCount
     {
         private const float SKY_DENSITY = 0.27f;
         private const float SURFACE_DENSITY = 0.26f;
@@ -17,7 +17,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
 
 
-        public static RegionBiomeCounts Calculate(RegionMap regionMap, DeterministicRng rng)
+        public static RegionBiomeCounts Calculate(RegionMap regionMap, U_DetermRng rng)
         {
             CountRegionRows(regionMap, out int skyRows, out int surfaceRows, out int undergroundRows);
 
@@ -57,7 +57,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
 
 
-        private static int CalculateRegionCount(DeterministicRng rng, int regionRows, float density)
+        private static int CalculateRegionCount(U_DetermRng rng, int regionRows, float density)
         {
             if (regionRows <= 0)
                 return 0;

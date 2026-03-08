@@ -1,14 +1,14 @@
 using Godot;
-using System.Collections.Generic;
+using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration;
 using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 {
-    public sealed partial class DebugBiomeMapRenderer : GenerationDebugLayer
+    public sealed partial class D_RegionMapRenderer : D_GenLayer
     {
-        [Export] public bool ShowMissingBiomeIdsInMagenta { get; set; } = true;
-        [Export] public int OverlayZIndex { get; set; } = 100;
+        [Export] public int OverlayZIndex { get; set; } = 90;
+        [Export] public float OverlayAlpha { get; set; } = 0.35f;
 
         private Sprite2D _sprite = null!;
         private ImageTexture _texture = null!;
@@ -27,34 +27,34 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
         {
             EnsureSprite();
 
-            BiomeMap biomeMap = context.BiomeMap;
-            int width = biomeMap.Width;
-            int height = biomeMap.Height;
+            RegionMap regionMap = context.RegionMap;
+            int width = regionMap.Width;
+            int height = regionMap.Height;
 
-            if (width <= 0 || height <= 0)
+            if ( width <= 0 || height <= 0)
             {
-                GD.PrintErr("[BAV3] [DebugBiomeMapRenderer] [Rebuild] - Invalid biome map size");
+                BavLogger.Error("Invalid region map size");
                 Clear();
                 return;
             }
 
             Image image = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
-            var colourCache = new Dictionary<string, Color>();
 
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    string biomeId = biomeMap.GetBiomeId(x, y);
-                    Color pixel = ResolvePixelColour(biomeId, colourCache);
-                    image.SetPixel(x, y, pixel);
+                    RegionId region = regionMap.GetRegion(x, y);
+                    image.SetPixel(x, y, ResolveRegionColor(region));
                 }
             }
 
             UploadImage(image);
+
             _sprite.Centered = false;
             _sprite.Position = Vector2.Zero;
             _sprite.Scale = new Vector2(context.Config.TerrainTilesSizePx.X, context.Config.TerrainTilesSizePx.Y);
+            _sprite.ZIndex = OverlayZIndex;
         }
 
 
@@ -73,13 +73,13 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
             if (_sprite != null)
                 return;
 
-            _sprite = GetNodeOrNull<Sprite2D>("BiomeMapSprite");
+            _sprite = GetNodeOrNull<Sprite2D>("RegionMapSprite");
 
             if (_sprite == null)
             {
                 _sprite = new Sprite2D
                 {
-                    Name = "BiomeMapSprite",
+                    Name = "RegionMapSprite",
                     Centered = false,
                     ZIndex = OverlayZIndex
                 };
@@ -112,25 +112,15 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 
 
 
-        private Color ResolvePixelColour(string biomeId, Dictionary<string, Color> colourCache)
+        private Color ResolveRegionColor(RegionId region)
         {
-            if (string.IsNullOrWhiteSpace(biomeId))
+            return region switch
             {
-                if (ShowMissingBiomeIdsInMagenta)
-                {
-                    return new Color(1f, 0f, 1f, 1f);
-                }
-
-                return new Color(0f, 0f, 0f, 0f);
-            }
-
-            if (colourCache.TryGetValue(biomeId, out Color cachedColour))
-                return cachedColour;
-
-            Color colour = DebugColourHasher.FromString(biomeId);
-            colourCache[biomeId] = colour;
-
-            return colour;
+                RegionId.Sky => new Color(0.75f, 0.75f, 0.75f, OverlayAlpha),
+                RegionId.Surface => new Color(0.50f, 0.50f, 0.50f, OverlayAlpha),
+                RegionId.Underground => new Color(0.25f, 0.25f, 0.25f, OverlayAlpha),
+                _ => new Color(1f, 0f, 1f, OverlayAlpha)
+            };
         }
     }
 }

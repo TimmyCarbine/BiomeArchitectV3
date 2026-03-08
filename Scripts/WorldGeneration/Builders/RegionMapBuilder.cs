@@ -7,7 +7,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class RegionMapBuilder
     {
-        public static void Build(WorldConfig config, RegionMap regionMap, DeterministicRng rng)
+        public static void Build(WorldConfig config, RegionMap regionMap, U_DetermRng rng)
         {
             int width = config.TerrainWidthTiles;
             int height = config.TerrainHeightTiles;
