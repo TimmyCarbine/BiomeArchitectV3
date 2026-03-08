@@ -1,12 +1,13 @@
-using Godot;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
+using Godot;
+
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 {
-    public static class RegionBiomeCountCalculator
+    public static class RegionBiomeCountHelper
     {
         private const float SKY_DENSITY = 0.27f;
         private const float SURFACE_DENSITY = 0.26f;

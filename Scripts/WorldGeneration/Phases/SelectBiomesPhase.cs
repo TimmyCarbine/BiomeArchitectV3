@@ -17,7 +17,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         {
             var registry = new BiomeRegistry();
 
-            RegionBiomeCounts counts = RegionBiomeCountCalculator.Calculate(context.RegionMap, rng);
+            RegionBiomeCounts counts = RegionBiomeCountHelper.Calculate(context.RegionMap, rng);
             context.SelectedBiomeCounts = counts;
 
             var selection = BiomeSelector.SelectBiomes(rng, registry, counts.Sky, counts.Surface, counts.Underground);
