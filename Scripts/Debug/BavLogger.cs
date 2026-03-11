@@ -12,7 +12,7 @@ namespace BiomeArchitectV3.Scripts.Debug
         private const int METHOD_WIDTH = -26;
 
         public static bool EnableRichLogs { get; set; } = true;
-        public static LogType LogLevel { get; set; } = LogType.Debug;
+        public static LogType LogLevel { get; set; } = LogType.Trace;
 
 
 
@@ -22,6 +22,7 @@ namespace BiomeArchitectV3.Scripts.Debug
         public static void Init     (string msg, [CallerMemberName] string method = "", [CallerFilePath] string filePath = "") => Log(LogType.Init,     msg, method, filePath);
         public static void Info     (string msg, [CallerMemberName] string method = "", [CallerFilePath] string filePath = "") => Log(LogType.Info,     msg, method, filePath);
         public static void Debug    (string msg, [CallerMemberName] string method = "", [CallerFilePath] string filePath = "") => Log(LogType.Debug,    msg, method, filePath);
+        public static void Trace    (string msg, [CallerMemberName] string method = "", [CallerFilePath] string filePath = "") => Log(LogType.Trace,    msg, method, filePath);
 
         
 

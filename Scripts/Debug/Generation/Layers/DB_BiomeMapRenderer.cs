@@ -5,7 +5,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 {
-    public sealed partial class D_BiomeMapRenderer : D_GenLayer
+    public sealed partial class DB_BiomeMapRenderer : DB_GenLayer
     {
         [Export] public bool ShowMissingBiomeIdsInMagenta { get; set; } = true;
         [Export] public int OverlayZIndex { get; set; } = 100;
@@ -127,7 +127,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
             if (colourCache.TryGetValue(biomeId, out Color cachedColour))
                 return cachedColour;
 
-            Color colour = D_ColourHasher.FromString(biomeId);
+            Color colour = DB_ColourHasher.FromString(biomeId);
             colourCache[biomeId] = colour;
 
             return colour;

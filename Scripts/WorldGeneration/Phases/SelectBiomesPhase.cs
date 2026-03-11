@@ -16,7 +16,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
         public override void Execute(PhaseContext context, U_DetermRng rng)
         {
-            var registry = new BiomeRegistry();
+            var registry = new D_BiomeRegistry();
 
             RegionBiomeCounts counts = U_BiomeCount.Calculate(context.RegionMap, rng);
             context.SelectedBiomeCounts = counts;
@@ -29,7 +29,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
 
 
-        private static void PrintSelectionWithRarity(BiomeSelectionResult biomes, BiomeRegistry registry)
+        private static void PrintSelectionWithRarity(BiomeSelectionResult biomes, D_BiomeRegistry registry)
         {
             var skyPool = registry.GetByRegion(RegionId.Sky);
             var surfacePool = registry.GetByRegion(RegionId.Surface);

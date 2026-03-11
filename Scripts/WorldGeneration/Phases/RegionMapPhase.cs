@@ -14,6 +14,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         {
             RegionMapBuilder.Build(context.Config, context.RegionMap, rng);
 
+            context.RegionMap.CalculateRegionBounds();
+
             int height = context.Config.TerrainHeightTiles;
             int sky = 0;
             int surface = 0;

@@ -10,7 +10,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         [Export] private Button _regenerateButton = null!;
         [Export] private WorldManager _worldManger = null!;
 
-        private const int DEFAULT_SEED = -2047984490; // -1633255524 All seeds clumped together
+        private const int DEFAULT_SEED = -2047984490; // -1633255524 All seeds clumped together (no longer clumped) | 1064472210 Seeds stacked
 
         private readonly WorldConfig _config = new WorldConfig
         {

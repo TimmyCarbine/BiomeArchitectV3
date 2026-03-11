@@ -3,7 +3,7 @@ using Godot;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {
-    public static class D_ColourHasher
+    public static class DB_ColourHasher
     {
         public static Color FromString(string id, float alpha = 0.75f)
         {

@@ -4,12 +4,12 @@ using BiomeArchitectV3.Scripts.WorldGeneration;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {
-    public sealed partial class D_GenRenderer : Node2D
+    public sealed partial class DB_GenRenderer : Node2D
     {
         [Export] public bool DebugEnabled { get; set; } = true;
         [Export] private NodePath _worldManagerPath { get; set; } = null!;
 
-        private readonly List<D_GenLayer> _layers = [];
+        private readonly List<DB_GenLayer> _layers = [];
         private WorldManager _worldManager = null!;
 
 
@@ -43,7 +43,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
             Visible = true;
 
-            foreach (D_GenLayer layer in _layers)
+            foreach (DB_GenLayer layer in _layers)
             {
                 layer.RebuildLayer(context);
             }
@@ -53,7 +53,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
         public void ClearAll()
         {
-            foreach (D_GenLayer layer in _layers)
+            foreach (DB_GenLayer layer in _layers)
             {
                 layer.ClearLayer();
             }
@@ -84,7 +84,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
 
             foreach (Node child in GetChildren())
             {
-                if (child is D_GenLayer layer)
+                if (child is DB_GenLayer layer)
                 {
                     _layers.Add(layer);
                 }

@@ -8,7 +8,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class BiomeSelector
     {
-        public static BiomeSelectionResult SelectBiomes(U_DetermRng rng, BiomeRegistry registry, int skyCount, int surfaceCount, int undergroundCount)
+        public static BiomeSelectionResult SelectBiomes(U_DetermRng rng, D_BiomeRegistry registry, int skyCount, int surfaceCount, int undergroundCount)
         {
             var sky = SelectBiomesWeighted(rng, registry.GetByRegion(RegionId.Sky), skyCount);
             var surface = SelectBiomesWeighted(rng, registry.GetByRegion(RegionId.Surface), surfaceCount);
@@ -19,11 +19,11 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
 
 
-        private static List<BiomeDef> SelectBiomesWeighted(U_DetermRng rng, IReadOnlyList<BiomeDef> pool, int count)
+        private static List<D_Biome> SelectBiomesWeighted(U_DetermRng rng, IReadOnlyList<D_Biome> pool, int count)
         {
             int target = Math.Min(count, pool.Count);
-            var working = new List<BiomeDef>(pool);
-            var biomes = new List<BiomeDef>(target);
+            var working = new List<D_Biome>(pool);
+            var biomes = new List<D_Biome>(target);
 
             for (int i = 0; i < target; i++)
             {
@@ -37,7 +37,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
 
 
-        private static int GetWeightedIndex(U_DetermRng rng, IReadOnlyList<BiomeDef> pool)
+        private static int GetWeightedIndex(U_DetermRng rng, IReadOnlyList<D_Biome> pool)
         {
             int total = 0;
             for (int i = 0; i < pool.Count; i++)

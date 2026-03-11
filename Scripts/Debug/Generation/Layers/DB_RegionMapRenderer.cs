@@ -5,7 +5,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 {
-    public sealed partial class D_RegionMapRenderer : D_GenLayer
+    public sealed partial class DB_RegionMapRenderer : DB_GenLayer
     {
         [Export] public int OverlayZIndex { get; set; } = 90;
         [Export] public float OverlayAlpha { get; set; } = 0.35f;
