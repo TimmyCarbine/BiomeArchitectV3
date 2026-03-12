@@ -6,12 +6,13 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using System.Collections.Generic;
 using BiomeArchitectV3.Scripts.WorldGeneration.Helpers;
 using System;
-using System.Linq;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 {
     public sealed class SeedBiomesPhase : GenerationPhase
     {
+        private const int CANDIDATES_PER_BIOME = 5000;
+
         public override string Name => "SeedBiomesPhase";
         public override string StreamLabel => WorldSeedStreams.BIOME_SEEDS;
 
@@ -76,7 +77,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         {
             List<Vector2I> availablePositions = new(context.RegionMap.GetCoordsForRegion(region));
 
-            int maxCandidates = biomeCount * 5;
+            int maxCandidates = biomeCount * CANDIDATES_PER_BIOME;
             maxCandidates = Math.Min(maxCandidates, availablePositions.Count);
 
             U_List.Shuffle(availablePositions, rng);

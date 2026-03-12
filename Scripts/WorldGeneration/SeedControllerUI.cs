@@ -10,17 +10,17 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         [Export] private Button _regenerateButton = null!;
         [Export] private WorldManager _worldManger = null!;
 
-        private const int DEFAULT_SEED = -2047984490; // -1633255524 All seeds clumped together (no longer clumped) | 1064472210 Seeds stacked
+        private const int DEFAULT_SEED = 1064472210; // -1633255524 All seeds clumped together (no longer clumped) | 1064472210 Underground dominant stacked seeds | -1117072743 Sky dominant stacked seeds
 
         private readonly WorldConfig _config = new WorldConfig
         {
             TerrainWidthTiles = 1024,
-            TerrainHeightTiles = 512,
+            TerrainHeightTiles = 1024,
             WrapX = true,
             Region = new RegionConfig
             {
-                SkyMin01 = 0.25f,
-                SkyMax01 = 0.40f,
+                SkyMin01 = 0.15f,
+                SkyMax01 = 0.60f,
                 SurfaceMin01 = 0.15f,
                 SurfaceMax01 = 0.25f
             }

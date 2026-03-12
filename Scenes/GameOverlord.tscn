@@ -30,6 +30,8 @@ MarkerRadius = 32.0
 [node name="Camera2D" type="Camera2D" parent="." unique_id=161218630]
 zoom = Vector2(0.25, 0.25)
 script = ExtResource("1_merrj")
+StartPos = Vector2(17813.455, 15929.825)
+StartZoom = Vector2(0.030784117, 0.030784117)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1503185587]
 

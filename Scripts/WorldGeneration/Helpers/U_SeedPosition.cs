@@ -12,6 +12,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
     {
         private const int SPACE_WEIGHT = 1000;
         private const int HEIGHT_WEIGHT = 1000;
+        private const float SEED_SPACING_HORIZONTAL_WEIGHT = 1.00f;
+        private const float SEED_SPACING_VERTICAL_WEIGHT = 0.35f;
 
 
 
@@ -116,7 +118,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
             else
             {
                 closestSeed = GetClosestSeedPosition(context, position, seedPositions);
-                spacingScore = ScoreSpacing(context, position, closestSeed);
+                spacingScore = ScoreSpacing(context, biome.Region, position, closestSeed);
             }
 
             int preferredTileY = GetPreferredTileY(context, biome);
@@ -138,17 +140,17 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
         private static Vector2I GetClosestSeedPosition(PhaseContext context, Vector2I candidate, IReadOnlyList<Vector2I> seedPositions)
         {   
-            long nearest = long.MaxValue;
+            float nearest = float.MaxValue;
             Vector2I closestSeedPos = Vector2I.Zero;
 
             for (int i = 0; i < seedPositions.Count; i++)
             {
                 Vector2I seedPos = seedPositions[i];
-                long distanceSq = GetDistanceSquared(context.Config, candidate.X, candidate.Y, seedPos.X, seedPos.Y);
+                float distance = GetSeedSpacingDistance(context.Config, candidate.X, candidate.Y, seedPos.X, seedPos.Y);
 
-                if (distanceSq < nearest)
+                if (distance < nearest)
                 {
-                    nearest = distanceSq;
+                    nearest = distance;
                     closestSeedPos = seedPos;
                 }
             }
@@ -182,25 +184,49 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
 
 
-        private static int ScoreSpacing(PhaseContext context, Vector2I position, Vector2I closestSeed)
+        private static int ScoreSpacing(PhaseContext context, RegionId region, Vector2I position, Vector2I closestSeed)
         {
-            long distanceSq = GetDistanceSquared(context.Config, position.X, position.Y, closestSeed.X, closestSeed.Y);
+            float distance = GetSeedSpacingDistance(context.Config, position.X, position.Y, closestSeed.X, closestSeed.Y);
 
             int maxDx = context.Config.WrapX
                 ? context.Config.TerrainWidthTiles / 2
                 : context.Config.TerrainWidthTiles - 1;
 
-            int maxDy = context.Config.TerrainHeightTiles - 1;
+            context.RegionMap.GetRegionBounds(region, out int topY, out int bottomY);
+            int maxDy = bottomY - topY;
 
-            long maxDistanceSq = (long)maxDx * maxDx + (long)maxDy * maxDy;
+            float maxDistance = (maxDx * maxDx * SEED_SPACING_HORIZONTAL_WEIGHT) + (maxDy * maxDy * SEED_SPACING_VERTICAL_WEIGHT);
 
-            if (maxDistanceSq <= 0)
+            if (maxDistance <= 0f)
                 return 0;
 
-            float normalized = (float)distanceSq / maxDistanceSq;
+            float normalized = distance / maxDistance;
             normalized = Mathf.Clamp(normalized, 0f, 1f);
 
             return Math.Clamp(Mathf.RoundToInt(normalized * SPACE_WEIGHT), 0, 99999);
+        }
+
+
+
+        private static float GetSeedSpacingDistance(WorldConfig config, int x, int y, int sx, int sy)
+        {
+            int dx = Math.Abs(x - sx);
+
+            if (config.WrapX)
+            {
+                int width = config.TerrainWidthTiles;
+                int wrapped = width - dx;
+
+                if (wrapped < dx)
+                    dx = wrapped;
+            }
+
+            int dy = Math.Abs(y - sy);
+
+            float weightedDx = dx * dx * SEED_SPACING_HORIZONTAL_WEIGHT;
+            float weightedDy = dy * dy * SEED_SPACING_VERTICAL_WEIGHT;
+
+            return weightedDx + weightedDy;
         }
 
 
@@ -233,9 +259,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
             
             if (biome.PreferredHeightStrength <= 0f)
             {
-                float distanceToMiddle = Mathf.Abs(candidateHeightNormalized - 0.5f);
-                float closenessToMiddle = 1f - distanceToMiddle;
-                return Mathf.RoundToInt(closenessToMiddle * 0.15f * HEIGHT_WEIGHT);
+                return 0;
             }
 
             float preferredHeightNormalized = Mathf.Clamp(biome.PreferredHeightNormalized, 0f, 1f);

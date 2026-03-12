@@ -9,6 +9,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class BiomeMapBuilder
     {
+        private const float EDGE_JITTER = 0.5f;
+
         public static void Build(WorldConfig config, RegionMap regionMap, BiomeMap biomeMap, IReadOnlyList<BiomeSeed> biomeSeeds)
         {
             var skySeeds = new List<BiomeSeed>();
@@ -53,16 +55,15 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
                     }
 
                     int bestIndex = 0;
-                    long bestDistanceSquared = long.MaxValue;
+                    float bestDistance = float.MaxValue;
 
                     for (int i = 0; i < list.Count; i++)
                     {
-                        Vector2I sPos = list[i].Position;
-                        long d2 = DistanceSquared(config, x, y, sPos.X, sPos.Y);
+                        float currentDistance = InfluenceDistance(config, x, y, list[i]);
 
-                        if (d2 < bestDistanceSquared)
+                        if (currentDistance < bestDistance)
                         {
-                            bestDistanceSquared = d2;
+                            bestDistance = currentDistance;
                             bestIndex = i;
                         }
                     }
@@ -74,8 +75,30 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
 
 
-        private static long DistanceSquared(WorldConfig config, int x, int y, int sx, int sy)
+        // private static long DistanceSquared(WorldConfig config, int x, int y, int sx, int sy)
+        // {
+        //     int dx = Math.Abs(x - sx);
+
+        //     if (config.WrapX)
+        //     {
+        //         int w = config.TerrainWidthTiles;
+        //         int wrapped = w - dx;
+        //         if (wrapped < dx)
+        //             dx = wrapped;
+        //     }
+
+        //     int dy = Math.Abs(y - sy);
+            
+        //     return (long)dx * dx + (long)dy * dy;
+        // }
+
+
+
+        private static float InfluenceDistance(WorldConfig config, int x, int y, BiomeSeed seed)
         {
+            int sx = seed.Position.X;
+            int sy = seed.Position.Y;
+
             int dx = Math.Abs(x - sx);
 
             if (config.WrapX)
@@ -87,8 +110,14 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
             }
 
             int dy = Math.Abs(y - sy);
-            
-            return (long)dx * dx + (long)dy * dy;
+
+            float hx = seed.Biome.HorizontalInfluence;
+            float vy = seed.Biome.VerticalInfluence;
+
+            float dx2 = dx * dx * hx;
+            float dy2 = dy * dy * vy;
+
+            return dx2 + dy2;
         }
     }
 }

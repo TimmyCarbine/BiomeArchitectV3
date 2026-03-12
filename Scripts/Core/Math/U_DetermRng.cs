@@ -45,6 +45,18 @@ namespace BiomeArchitectV3.Scripts.Core.Math
 
 
 
+        public float Rangef(float minInclusive, float maxExclusive)
+        {
+            if (maxExclusive <= minInclusive)
+                return minInclusive;
+
+            float span = maxExclusive - minInclusive;
+
+            return minInclusive + (NextFloat01() * span);
+        }
+
+
+
         public float NextFloat01()
         {
             return NextUInt() * (1f / 4294967296f);

@@ -4,8 +4,8 @@ namespace BiomeArchitectV3.Scripts.Core.World
 {
     public sealed class WorldConfig
     {
-        public int TerrainWidthTiles { get; init; } = 256; // Small = 1024 | Med = 2048 | Large = 4096
-        public int TerrainHeightTiles { get; init; } = 128; // Small = 512 | Med = 1024 | Large = 2048
+        public int TerrainWidthTiles { get; init; } = 256; // Small = 1024             | Med = 2048             | Large = 4096
+        public int TerrainHeightTiles { get; init; } = 128; // Small = 512 (Tall 1024) | Med = 1024 (Tall 2048) | Large = 2048 (Tall 4096)
 
         public bool WrapX { get; init; } = true;
 
