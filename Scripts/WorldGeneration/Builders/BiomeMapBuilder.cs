@@ -1,4 +1,3 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using BiomeArchitectV3.Scripts.Core.World;
@@ -9,10 +8,16 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class BiomeMapBuilder
     {
-        private const float EDGE_JITTER = 0.5f;
 
-        public static void Build(WorldConfig config, RegionMap regionMap, BiomeMap biomeMap, IReadOnlyList<BiomeSeed> biomeSeeds)
+
+
+        public static void Build(PhaseContext context)
         {
+            WorldConfig config = context.Config;
+            RegionMap regionMap = context.RegionMap;
+            BiomeMap biomeMap = context.BiomeMap;
+            IReadOnlyList<BiomeSeed> biomeSeeds = context.BiomeSeeds;
+
             var skySeeds = new List<BiomeSeed>();
             var surfaceSeeds = new List<BiomeSeed>();
             var undergroundSeeds = new List<BiomeSeed>();
@@ -41,14 +46,14 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
                 {
                     RegionId region = regionMap.GetRegion(x, y);
 
-                    List<BiomeSeed> list = region switch
+                    List<BiomeSeed> seeds = region switch
                     {
                         RegionId.Sky => skySeeds,
                         RegionId.Surface => surfaceSeeds,
                         _ => undergroundSeeds
                     };
 
-                    if (list.Count == 0)
+                    if (seeds.Count == 0)
                     {
                         biomeMap.SetBiomeId(x, y, string.Empty);
                         continue;
@@ -57,9 +62,9 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
                     int bestIndex = 0;
                     float bestDistance = float.MaxValue;
 
-                    for (int i = 0; i < list.Count; i++)
+                    for (int i = 0; i < seeds.Count; i++)
                     {
-                        float currentDistance = InfluenceDistance(config, x, y, list[i]);
+                        float currentDistance = InfluenceDistance(config, x, y, seeds[i]);
 
                         if (currentDistance < bestDistance)
                         {
@@ -68,29 +73,10 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
                         }
                     }
 
-                    biomeMap.SetBiomeId(x, y, list[bestIndex].Biome.Id);
+                    biomeMap.SetBiomeId(x, y, seeds[bestIndex].Biome.Id);
                 }
             }
         }
-
-
-
-        // private static long DistanceSquared(WorldConfig config, int x, int y, int sx, int sy)
-        // {
-        //     int dx = Math.Abs(x - sx);
-
-        //     if (config.WrapX)
-        //     {
-        //         int w = config.TerrainWidthTiles;
-        //         int wrapped = w - dx;
-        //         if (wrapped < dx)
-        //             dx = wrapped;
-        //     }
-
-        //     int dy = Math.Abs(y - sy);
-            
-        //     return (long)dx * dx + (long)dy * dy;
-        // }
 
 
 
@@ -111,11 +97,11 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
             int dy = Math.Abs(y - sy);
 
-            float hx = seed.Biome.HorizontalInfluence;
-            float vy = seed.Biome.VerticalInfluence;
+            float horiInfluence = seed.Biome.HorizontalInfluence;
+            float vertInfluence = seed.Biome.VerticalInfluence;
 
-            float dx2 = dx * dx * hx;
-            float dy2 = dy * dy * vy;
+            float dx2 = dx * dx * horiInfluence;
+            float dy2 = dy * dy * vertInfluence;
 
             return dx2 + dy2;
         }
