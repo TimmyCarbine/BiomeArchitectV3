@@ -39,7 +39,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 
                 Color fillColour = DB_ColourHasher.FromString(seed.Biome.Id, ColourAlpha);
 
-                _seedEntries.Add(new SeedDrawEntry(new Vector2(worldX, worldY), fillColour));
+                _seedEntries.Add(new SeedDrawEntry(new Vector2(worldX, worldY), fillColour, seed.Biome.Id));
             }
 
             QueueRedraw();
@@ -69,15 +69,21 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
                     DrawCircle(entry.WorldPosition, outlineRadius, OutlineColour);
 
                 DrawCircle(entry.WorldPosition, MarkerRadius, entry.FillColour);
+
+                var alignment = HorizontalAlignment.Left;
+                Vector2 offsetPos = new(MarkerRadius * 2f, 0f);
+
+                DrawString(ThemeDB.FallbackFont, entry.WorldPosition + offsetPos, entry.BiomeName, alignment, -1, (int)MarkerRadius * 10);
             }
         }
 
 
 
-        private readonly struct SeedDrawEntry(Vector2 worldPosition, Color fillColour)
+        private readonly struct SeedDrawEntry(Vector2 worldPosition, Color fillColour, string biomeName)
         {
             public Vector2 WorldPosition { get; } = worldPosition;
             public Color FillColour { get; } = fillColour;
+            public string BiomeName { get; } = biomeName;
         }
     }
 }
