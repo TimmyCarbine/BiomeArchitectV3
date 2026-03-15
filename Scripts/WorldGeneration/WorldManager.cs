@@ -29,6 +29,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
             _phases.Add(new Phases.SeedBiomesPhase());
             _phases.Add(new Phases.BiomeMapPhase());
             _phases.Add(new Phases.HeightMapPhase());
+            _phases.Add(new Phases.SolidMapPhase());
         }
 
 
