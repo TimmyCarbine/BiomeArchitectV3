@@ -6,7 +6,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
-    public static class BiomeSelector
+    public static class B_BiomeSelector
     {
         public static D_BiomeSelectionResult SelectBiomes(U_DetermRng rng, D_BiomeRegistry registry, int skyCount, int surfaceCount, int undergroundCount)
         {

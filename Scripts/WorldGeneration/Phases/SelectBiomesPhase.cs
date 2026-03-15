@@ -6,7 +6,7 @@ using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Builders;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
-using BiomeArchitectV3.Scripts.WorldGeneration.Helpers;
+using BiomeArchitectV3.Scripts.WorldGeneration.Logic;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 {
@@ -19,10 +19,10 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         {
             var registry = new D_BiomeRegistry();
 
-            D_RegionBiomeCounts counts = U_BiomeCount.Calculate(context.RegionMap, rng);
+            D_RegionBiomeCounts counts = L_BiomeCount.Calculate(context.RegionMap, rng);
             context.SelectedBiomeCounts = counts;
 
-            var selection = BiomeSelector.SelectBiomes(rng, registry, counts.Sky, counts.Surface, counts.Underground);
+            var selection = B_BiomeSelector.SelectBiomes(rng, registry, counts.Sky, counts.Surface, counts.Underground);
             context.SelectedBiomes = selection;
 
             context.SelectedBiomeLookup.Clear();

@@ -7,7 +7,7 @@ using Godot;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
-    public static class HeightMapBuilder
+    public static class B_HeightMap
     {
         private const int BASE_RETARGET_MIN = 24;
         private const int BASE_RETARGET_MAX = 96;

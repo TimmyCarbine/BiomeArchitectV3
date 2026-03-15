@@ -6,9 +6,9 @@ using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Debug;
 
-namespace BiomeArchitectV3.Scripts.WorldGeneration
+namespace BiomeArchitectV3.Scripts.WorldGeneration.Managers
 {
-    public sealed partial class WorldManager : Node
+    public sealed partial class M_World : Node
     {
         private readonly List<GenerationPhase> _phases = [];
 

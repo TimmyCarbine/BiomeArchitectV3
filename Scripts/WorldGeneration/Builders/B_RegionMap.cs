@@ -5,7 +5,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
-    public static class RegionMapBuilder
+    public static class B_RegionMap
     {
         public static void Build(WorldConfig config, RegionMap regionMap, U_DetermRng rng)
         {

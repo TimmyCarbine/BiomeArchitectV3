@@ -1,14 +1,15 @@
 using Godot;
 using BiomeArchitectV3.Scripts.Core.World;
+using BiomeArchitectV3.Scripts.WorldGeneration.Managers;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration
 {
-    public sealed partial class SeedControllerUI : Control
+    public sealed partial class UI_SeedController : Control
     {
         [Export] private LineEdit _seedLineEdit = null!;
         [Export] private Button _randomiseButton = null!;
         [Export] private Button _regenerateButton = null!;
-        [Export] private WorldManager _worldManger = null!;
+        [Export] private M_World _worldManager = null!;
 
         private const int DEFAULT_SEED = 1064472210; // -1633255524 All seeds clumped together (no longer clumped) | 1064472210 Underground dominant stacked seeds | -1117072743 Sky dominant stacked seeds
 
@@ -45,7 +46,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         {
             int s = (int)GD.Randi();
             _seedLineEdit.Text = s.ToString();
-            _worldManger.Regenerate(_config, s);
+            _worldManager.Regenerate(_config, s);
         }
 
 
@@ -53,7 +54,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         private void OnRegeneratePressed()
         {
             int seed = ParseSeedOrFallback(_seedLineEdit.Text, DEFAULT_SEED);
-            _worldManger.Regenerate(_config, seed);
+            _worldManager.Regenerate(_config, seed);
         }
 
 

@@ -4,7 +4,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
-    public static class SolidMapBuilder
+    public static class B_SolidMap
     {
         public static void Build(PhaseContext context)
         {

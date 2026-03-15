@@ -6,7 +6,7 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
-    public static class BiomeMapBuilder
+    public static class B_BiomeMap
     {
 
 

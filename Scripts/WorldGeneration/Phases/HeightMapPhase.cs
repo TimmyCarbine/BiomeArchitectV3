@@ -14,7 +14,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
         public override void Execute(PhaseContext context, U_DetermRng rng)
         {
-            HeightMapBuilder.Build(context, rng);
+            B_HeightMap.Build(context, rng);
             BavLogger.Init("HeightMap Established");
         }
     }

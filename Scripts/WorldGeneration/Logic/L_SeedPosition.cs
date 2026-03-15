@@ -7,9 +7,9 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data.Structs;
 using BiomeArchitectV3.Scripts.Debug;
 
-namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
+namespace BiomeArchitectV3.Scripts.WorldGeneration.Logic
 {
-    public static class U_SeedPosition
+    public static class L_SeedPosition
     {
         private const int SPACE_WEIGHT = 1000;
         private const int HEIGHT_WEIGHT = 1000;
@@ -228,26 +228,6 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
             float weightedDy = dy * dy * SEED_SPACING_VERTICAL_WEIGHT;
 
             return weightedDx + weightedDy;
-        }
-
-
-
-        private static long GetDistanceSquared(WorldConfig config, int x, int y, int sx, int sy)
-        {
-            int dx = Math.Abs(x - sx);
-
-            if (config.WrapX)
-            {
-                int width = config.TerrainWidthTiles;
-                int wrapped = width - dx;
-
-                if (wrapped < dx)
-                    dx = wrapped;
-            }
-
-            int dy = Math.Abs(y - sy);
-
-            return (long)dx * dx + (long)dy * dy;
         }
 
 

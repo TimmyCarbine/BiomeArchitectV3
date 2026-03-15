@@ -4,10 +4,9 @@ using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using BiomeArchitectV3.Scripts.WorldGeneration.Maps;
 using Godot;
 
-
-namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
+namespace BiomeArchitectV3.Scripts.WorldGeneration.Logic
 {
-    public static class U_BiomeCount
+    public static class L_BiomeCount
     {
         private const float SKY_DENSITY = 0.27f;
         private const float SURFACE_DENSITY = 0.26f;
