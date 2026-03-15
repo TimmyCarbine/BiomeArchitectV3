@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://brrutxiboxb0o" path="res://Scripts/Debug/Generation/Layers/DB_RegionMapRenderer.cs" id="3_q3s66"]
 [ext_resource type="Script" uid="uid://ri117lhple7k" path="res://Scripts/Debug/Generation/Layers/DB_BiomeMapRenderer.cs" id="4_4ibya"]
 [ext_resource type="Script" uid="uid://b0rk6aki1dolq" path="res://Scripts/Debug/Generation/Layers/DB_BiomeSeedRenderer.cs" id="5_f2hfv"]
+[ext_resource type="Script" uid="uid://b1lartmkhe154" path="res://Scripts/Debug/Generation/Layers/DB_SolidMapRenderer.cs" id="6_q3s66"]
 
 [node name="GameOverlord" type="Node2D" unique_id=1507489134]
 
@@ -26,6 +27,10 @@ script = ExtResource("4_4ibya")
 [node name="DebugBiomeSeedRenderer" type="Node2D" parent="GenerationDebugRenderer" unique_id=1848694106]
 script = ExtResource("5_f2hfv")
 MarkerRadius = 32.0
+
+[node name="DebugSolidMapRenderer" type="Node2D" parent="GenerationDebugRenderer" unique_id=15957781]
+script = ExtResource("6_q3s66")
+OverlayZIndex = 105
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=161218630]
 zoom = Vector2(0.25, 0.25)
