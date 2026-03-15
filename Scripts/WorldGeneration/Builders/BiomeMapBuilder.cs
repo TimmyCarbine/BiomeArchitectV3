@@ -16,11 +16,11 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
             WorldConfig config = context.Config;
             RegionMap regionMap = context.RegionMap;
             BiomeMap biomeMap = context.BiomeMap;
-            IReadOnlyList<BiomeSeed> biomeSeeds = context.BiomeSeeds;
+            IReadOnlyList<D_BiomeSeed> biomeSeeds = context.BiomeSeeds;
 
-            var skySeeds = new List<BiomeSeed>();
-            var surfaceSeeds = new List<BiomeSeed>();
-            var undergroundSeeds = new List<BiomeSeed>();
+            var skySeeds = new List<D_BiomeSeed>();
+            var surfaceSeeds = new List<D_BiomeSeed>();
+            var undergroundSeeds = new List<D_BiomeSeed>();
 
             for (int i = 0; i < biomeSeeds.Count; i++)
             {
@@ -46,7 +46,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
                 {
                     RegionId region = regionMap.GetRegion(x, y);
 
-                    List<BiomeSeed> seeds = region switch
+                    List<D_BiomeSeed> seeds = region switch
                     {
                         RegionId.Sky => skySeeds,
                         RegionId.Surface => surfaceSeeds,
@@ -80,7 +80,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
 
 
-        private static float InfluenceDistance(WorldConfig config, int x, int y, BiomeSeed seed)
+        private static float InfluenceDistance(WorldConfig config, int x, int y, D_BiomeSeed seed)
         {
             int sx = seed.Position.X;
             int sy = seed.Position.Y;
@@ -97,8 +97,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 
             int dy = Math.Abs(y - sy);
 
-            float horiInfluence = seed.Biome.HorizontalInfluence;
-            float vertInfluence = seed.Biome.VerticalInfluence;
+            float horiInfluence = seed.Biome.Influence.Horizontal;
+            float vertInfluence = seed.Biome.Influence.Vertical;
 
             float dx2 = dx * dx * horiInfluence;
             float dy2 = dy * dy * vertInfluence;

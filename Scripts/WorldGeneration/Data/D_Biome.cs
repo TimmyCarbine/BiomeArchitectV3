@@ -1,4 +1,5 @@
 using BiomeArchitectV3.Scripts.Core.World;
+using BiomeArchitectV3.Scripts.WorldGeneration.Data.Structs;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Data
 {
@@ -7,10 +8,10 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Data
         string id,
         RegionId region,
         int selectionWeight,
-        float preferredHeightNormalized = 0.5f,
-        float preferredHeightStrength = 0f,
-        float horizontalInfluence = 1f,
-        float verticalInfluence = 1f
+
+        S_BiomePreferredHeight preferredHeight = default,
+        S_BiomeInfluence influence = default,
+        S_BiomeSurfaceShape surface = default
     )
     {
         // Biome Data
@@ -21,11 +22,12 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Data
         public int SelectionWeight { get; } = selectionWeight;
 
         // Seed Location
-        public float PreferredHeightNormalized = preferredHeightNormalized;
-        public float PreferredHeightStrength = preferredHeightStrength;
+        public S_BiomePreferredHeight PreferredHeight { get; } = preferredHeight;
 
         // Biome Size & Shape
-        public float HorizontalInfluence = horizontalInfluence;
-        public float VerticalInfluence = verticalInfluence;
+        public S_BiomeInfluence Influence { get; } = influence;
+
+        // Surface Shape
+        public S_BiomeSurfaceShape Surface { get; } = surface;
     }
 }

@@ -17,7 +17,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
 
 
-        public static RegionBiomeCounts Calculate(RegionMap regionMap, U_DetermRng rng)
+        public static D_RegionBiomeCounts Calculate(RegionMap regionMap, U_DetermRng rng)
         {
             CountRegionRows(regionMap, out int skyRows, out int surfaceRows, out int undergroundRows);
 
@@ -25,7 +25,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
             int surface = CalculateRegionCount(rng, surfaceRows, SURFACE_DENSITY);
             int underground = CalculateRegionCount(rng, undergroundRows, UNDERGROUND_DENSITY);
 
-            return new RegionBiomeCounts(sky, surface, underground);
+            return new D_RegionBiomeCounts(sky, surface, underground);
         }
 
 

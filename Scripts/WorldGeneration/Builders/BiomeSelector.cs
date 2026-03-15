@@ -8,13 +8,13 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Builders
 {
     public static class BiomeSelector
     {
-        public static BiomeSelectionResult SelectBiomes(U_DetermRng rng, D_BiomeRegistry registry, int skyCount, int surfaceCount, int undergroundCount)
+        public static D_BiomeSelectionResult SelectBiomes(U_DetermRng rng, D_BiomeRegistry registry, int skyCount, int surfaceCount, int undergroundCount)
         {
             var sky = SelectBiomesWeighted(rng, registry.GetByRegion(RegionId.Sky), skyCount);
             var surface = SelectBiomesWeighted(rng, registry.GetByRegion(RegionId.Surface), surfaceCount);
             var underground = SelectBiomesWeighted(rng, registry.GetByRegion(RegionId.Underground), undergroundCount);
 
-            return new BiomeSelectionResult(sky, surface, underground);
+            return new D_BiomeSelectionResult(sky, surface, underground);
         }
 
 

@@ -4,6 +4,7 @@ using Godot;
 using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
+using BiomeArchitectV3.Scripts.WorldGeneration.Data.Structs;
 using BiomeArchitectV3.Scripts.Debug;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
@@ -29,7 +30,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
             List<Vector2I> seedPositions = GetSeedPositions(context, region);
             HashSet<Vector2I> occupiedPositions = new(seedPositions);
-            List<SeedScore> scoredCandidates = [];
+            List<S_SeedScore> scoredCandidates = [];
 
             int start = rng.Range(0, candidates.Count);
             for (int i = 0; i < candidates.Count; i++)
@@ -39,7 +40,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
                 if (occupiedPositions.Contains(candidate))
                     continue;
 
-                SeedScore currentScore = ScoreSeedPosition(context, biome, candidate, seedPositions);
+                S_SeedScore currentScore = ScoreSeedPosition(context, biome, candidate, seedPositions);
                 scoredCandidates.Add(currentScore);
             }
 
@@ -52,7 +53,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
             scoredCandidates.Sort((a, b) => b.TotalScore.CompareTo(a.TotalScore));
 
             int bestTotalScore = scoredCandidates[0].TotalScore;
-            List<SeedScore> tiedBestScores = [];
+            List<S_SeedScore> tiedBestScores = [];
 
             for (int i = 0; i < scoredCandidates.Count; i++)
             {
@@ -62,7 +63,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
                 tiedBestScores.Add(scoredCandidates[i]);
             }
 
-            SeedScore bestScore = tiedBestScores[rng.Range(0, tiedBestScores.Count)];
+            S_SeedScore bestScore = tiedBestScores[rng.Range(0, tiedBestScores.Count)];
             Vector2I selectedPos = bestScore.Position;
 
             LogTopSeedScores(biome, scoredCandidates, bestScore);
@@ -72,14 +73,14 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
 
 
-        private static void LogTopSeedScores(D_Biome biome, IReadOnlyList<SeedScore> scores, SeedScore bestScore)
+        private static void LogTopSeedScores(D_Biome biome, IReadOnlyList<S_SeedScore> scores, S_SeedScore bestScore)
         {
             BavLogger.Debug($"{biome.Region,-11} | {biome.Id,-22} | Rank 1 | {bestScore}");
             int rank = 2;
 
             for (int i = 0; i < scores.Count && rank <= 5; i++)
             {
-                SeedScore score = scores[i];
+                S_SeedScore score = scores[i];
 
                 if (score.Position == bestScore.Position)
                     continue;
@@ -96,7 +97,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
         {
             List<Vector2I> seedPositions = [];
 
-            foreach (BiomeSeed seed in context.BiomeSeeds)
+            foreach (D_BiomeSeed seed in context.BiomeSeeds)
             {
                 if (seed.Biome.Region == region)
                     seedPositions.Add(seed.Position);
@@ -106,7 +107,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
         }
 
 
-        private static SeedScore ScoreSeedPosition(PhaseContext context, D_Biome biome, Vector2I position, IReadOnlyList<Vector2I> seedPositions)
+        private static S_SeedScore ScoreSeedPosition(PhaseContext context, D_Biome biome, Vector2I position, IReadOnlyList<Vector2I> seedPositions)
         {
             Vector2I closestSeed = Vector2I.Zero;
             int spacingScore;
@@ -124,7 +125,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
             int preferredTileY = GetPreferredTileY(context, biome);
             int heightScore = ScoreHeight(context, biome, position);
 
-            SeedScore score = new
+            S_SeedScore score = new
             (
                 position,
                 closestSeed,
@@ -172,9 +173,9 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
                 return topY;
             }
 
-            if (biome.PreferredHeightNormalized > 0f)
+            if (biome.PreferredHeight.Normalized > 0f)
             {
-                float normalized = Mathf.Clamp(biome.PreferredHeightNormalized, 0f, 1f);
+                float normalized = Mathf.Clamp(biome.PreferredHeight.Normalized, 0f, 1f);
                 int regionHeight = bottomY - topY;
                 tileY = topY + Mathf.RoundToInt(regionHeight * normalized);
             }
@@ -257,13 +258,13 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Helpers
 
             float candidateHeightNormalized = CalculateRegionHeightNormalized(position.Y, topY, bottomY);
             
-            if (biome.PreferredHeightStrength <= 0f)
+            if (biome.PreferredHeight.Strength <= 0f)
             {
                 return 0;
             }
 
-            float preferredHeightNormalized = Mathf.Clamp(biome.PreferredHeightNormalized, 0f, 1f);
-            float strength = Mathf.Clamp(biome.PreferredHeightStrength, 0f, 1f);
+            float preferredHeightNormalized = Mathf.Clamp(biome.PreferredHeight.Normalized, 0f, 1f);
+            float strength = Mathf.Clamp(biome.PreferredHeight.Strength, 0f, 1f);
 
             float distance = Mathf.Abs(candidateHeightNormalized - preferredHeightNormalized);
             float closeness = 1f - distance;

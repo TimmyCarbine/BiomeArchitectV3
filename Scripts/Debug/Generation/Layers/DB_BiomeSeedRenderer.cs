@@ -32,7 +32,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation.Layers
 
             Vector2I tileSize = context.Config.TerrainTilesSizePx;
 
-            foreach (BiomeSeed seed in context.BiomeSeeds)
+            foreach (D_BiomeSeed seed in context.BiomeSeeds)
             {
                 float worldX = (seed.Position.X + 0.5f) * tileSize.X;
                 float worldY = (seed.Position.Y + 0.5f) * tileSize.Y;

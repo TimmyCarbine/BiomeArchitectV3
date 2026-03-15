@@ -47,7 +47,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             {
                 D_Biome biome = orderedBiomes[i];
                 Vector2I position = U_SeedPosition.FindSeedPosition(context, rng, biome, candidates);
-                BiomeSeed seed = new BiomeSeed(biome, position);
+                D_BiomeSeed seed = new D_BiomeSeed(biome, position);
                 context.BiomeSeeds.Add(seed);
 
                 PrintSeedWithLocation(biome, position);
@@ -66,7 +66,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         private static List<D_Biome> SortDesc_BiomesByStrength(IReadOnlyList<D_Biome> biomes)
         {
             List<D_Biome> orderedBiomes = [.. biomes];
-            orderedBiomes.Sort((a, b) => b.PreferredHeightStrength.CompareTo(a.PreferredHeightStrength));
+            orderedBiomes.Sort((a, b) => b.PreferredHeight.Strength.CompareTo(a.PreferredHeight.Strength));
 
             return orderedBiomes;
         }

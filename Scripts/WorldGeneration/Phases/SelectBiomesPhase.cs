@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 using Godot;
 using BiomeArchitectV3.Scripts.Debug;
 using BiomeArchitectV3.Scripts.Core.Math;
@@ -18,18 +19,34 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         {
             var registry = new D_BiomeRegistry();
 
-            RegionBiomeCounts counts = U_BiomeCount.Calculate(context.RegionMap, rng);
+            D_RegionBiomeCounts counts = U_BiomeCount.Calculate(context.RegionMap, rng);
             context.SelectedBiomeCounts = counts;
 
             var selection = BiomeSelector.SelectBiomes(rng, registry, counts.Sky, counts.Surface, counts.Underground);
             context.SelectedBiomes = selection;
+
+            context.SelectedBiomeLookup.Clear();
+            AddBiomesToLookup(context.SelectedBiomeLookup, selection.Sky);
+            AddBiomesToLookup(context.SelectedBiomeLookup, selection.Surface);
+            AddBiomesToLookup(context.SelectedBiomeLookup, selection.Underground);
 
             PrintSelectionWithRarity(selection, registry);
         }
 
 
 
-        private static void PrintSelectionWithRarity(BiomeSelectionResult biomes, D_BiomeRegistry registry)
+        private static void AddBiomesToLookup(Dictionary<string, D_Biome> lookup, IReadOnlyList<D_Biome> biomes)
+        {
+            for (int i = 0; i < biomes.Count; i++)
+            {
+                D_Biome biome = biomes[i];
+                lookup[biome.Id] = biome;
+            }
+        }
+
+
+
+        private static void PrintSelectionWithRarity(D_BiomeSelectionResult biomes, D_BiomeRegistry registry)
         {
             var skyPool = registry.GetByRegion(RegionId.Sky);
             var surfacePool = registry.GetByRegion(RegionId.Surface);
