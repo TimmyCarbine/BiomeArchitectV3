@@ -52,6 +52,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
                 PrintSeedWithLocation(biome, position);
             }
+
+            BavLogger.Init("Seeded Biomes");
         }
 
 

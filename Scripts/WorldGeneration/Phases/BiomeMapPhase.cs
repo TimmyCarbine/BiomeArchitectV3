@@ -25,7 +25,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             }
 
             BiomeMapBuilder.Build(context);
-            BavLogger.Init("BiomeMap created");
+            BavLogger.Init("BiomeMap Established");
         }
     }
 }

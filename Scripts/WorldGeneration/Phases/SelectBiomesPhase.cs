@@ -31,6 +31,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             AddBiomesToLookup(context.SelectedBiomeLookup, selection.Underground);
 
             PrintSelectionWithRarity(selection, registry);
+
+            BavLogger.Init("Selected Biomes");
         }
 
 
