@@ -1,3 +1,5 @@
+using BiomeArchitectV3.Scripts.Core.Math;
+
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 {
     public sealed class HeightMap(int width, bool wrapX)
@@ -11,7 +13,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 
         public int GetSurfaceY(int x)
         {
-            x = WrapXCoord(x);
+            x = NormalizeX(x);
 
             return _surfaceY[x];
         }
@@ -20,22 +22,18 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 
         public void SetSurface(int x, int y)
         {
-            x = WrapXCoord(x);
+            x = NormalizeX(x);
             _surfaceY[x] = y;
         }
 
 
 
-        private int WrapXCoord(int x)
+        private int NormalizeX(int x)
         {
             if (!WrapX)
                 return x;
 
-            int wrapped = x % Width;
-            if (wrapped < 0)
-                wrapped += Width;
-
-            return wrapped;
+            return U_Wrap.WrapX(x, Width);
         }
     }
 }
