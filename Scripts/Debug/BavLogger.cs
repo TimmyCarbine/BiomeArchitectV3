@@ -12,7 +12,7 @@ namespace BiomeArchitectV3.Scripts.Debug
         private const int METHOD_WIDTH = -26;
 
         public static bool EnableRichLogs { get; set; } = true;
-        public static LogType LogLevel { get; set; } = LogType.Trace;
+        public static LogType LogLevel { get; set; } = LogType.Init;
 
 
 

@@ -54,7 +54,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
                 timer.Stop();
 
                 context.Timings.Set(phase.Name, timer.ElapsedMilliseconds);
-                BavLogger.Init($"Phase: {phase.Name} => {timer.ElapsedMilliseconds} ms");
+                BavLogger.Init($"Completed {phase.Name} in {timer.ElapsedMilliseconds} ms");
             }
 
             LastContext = context;

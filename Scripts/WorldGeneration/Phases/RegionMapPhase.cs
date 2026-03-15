@@ -36,6 +36,8 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             BavLogger.Init($"[BAV3] Regions: Sky = {sky} ({sky / (float)height:P0}) | " +
                                       $"Surface = {surface} ({surface / (float)height:P0}) | " +
                                       $"Underground = {underground} ({underground / (float)height:P0})");
+
+            BavLogger.Init("RegionMap Established");
         }
     }
 }

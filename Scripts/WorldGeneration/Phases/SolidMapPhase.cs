@@ -15,7 +15,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
         public override void Execute(PhaseContext context, U_DetermRng rng)
         {
             SolidMapBuilder.Build(context);
-            BavLogger.Init("SolidMapPhase Complete");
+            BavLogger.Init("SolidMap Established");
         }
     }
 }
