@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using BiomeArchitectV3.Scripts.WorldGeneration;
+using BiomeArchitectV3.Scripts.WorldGeneration.Managers;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {

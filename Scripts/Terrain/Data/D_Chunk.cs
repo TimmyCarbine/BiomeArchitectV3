@@ -11,10 +11,10 @@ namespace BiomeArchitectV3.Scripts.Terrain.Data
         int chunkSizeTiles
     )
     {
-        public PhaseContext Context = context;
-        public S_ChunkCoord LogicalCoord = logicalCoord;
-        public S_ChunkCoord CanonicalCoord = canonicalCoord;
-        public S_ChunkRect TileRect = tileRect;
-        public int ChunkSizeTiles = chunkSizeTiles;
+        public PhaseContext Context { get; } = context;
+        public S_ChunkCoord LogicalCoord { get; } = logicalCoord;
+        public S_ChunkCoord CanonicalCoord { get; } = canonicalCoord;
+        public S_ChunkRect TileRect { get; } = tileRect;
+        public int ChunkSizeTiles { get; } = chunkSizeTiles;
     }
 }

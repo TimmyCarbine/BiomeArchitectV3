@@ -25,7 +25,7 @@ namespace BiomeArchitectV3.Scripts.Terrain.Logic
 
 
 
-        public static S_ChunkCoord GetCanonicalChunkCoords(S_ChunkCoord logicalCoord, int worldChunkWidth, bool wrapX)
+        public static S_ChunkCoord GetCanonicalChunkCoord(S_ChunkCoord logicalCoord, int worldChunkWidth, bool wrapX)
         {
             if (!wrapX)
                 return logicalCoord;
