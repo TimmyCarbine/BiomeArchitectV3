@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bnmy1jyj6nvbe" path="res://Scripts/WorldGeneration/Managers/M_World.cs" id="1_q3s66"]
 [ext_resource type="Script" uid="uid://ddtdaap5nevb8" path="res://Scripts/Terrain/Managers/M_TerrainStreamer.cs" id="2_f2hfv"]
 [ext_resource type="Script" uid="uid://rug6jk7xsnum" path="res://Scripts/Debug/Generation/DB_GenRenderer.cs" id="2_mq2eh"]
-[ext_resource type="PackedScene" uid="uid://c4jp8nkb42pn5" path="res://Scenes/TerrainChunk.tscn" id="3_f2hfv"]
+[ext_resource type="PackedScene" uid="uid://cdq2tavanp6hg" path="res://Scenes/Terrain/TerrainChunk.tscn" id="3_f2hfv"]
 [ext_resource type="Script" uid="uid://brrutxiboxb0o" path="res://Scripts/Debug/Generation/Layers/DB_RegionMapRenderer.cs" id="3_q3s66"]
 [ext_resource type="Script" uid="uid://ri117lhple7k" path="res://Scripts/Debug/Generation/Layers/DB_BiomeMapRenderer.cs" id="4_4ibya"]
 [ext_resource type="Script" uid="uid://b0rk6aki1dolq" path="res://Scripts/Debug/Generation/Layers/DB_BiomeSeedRenderer.cs" id="5_f2hfv"]
