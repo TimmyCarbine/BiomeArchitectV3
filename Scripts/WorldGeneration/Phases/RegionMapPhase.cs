@@ -12,7 +12,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
 
         public override void Execute(PhaseContext context, U_DetermRng rng)
         {
-            RegionMapBuilder.Build(context.Config, context.RegionMap, rng);
+            B_RegionMap.Build(context.Config, context.RegionMap, rng);
 
             context.RegionMap.CalculateRegionBounds();
 

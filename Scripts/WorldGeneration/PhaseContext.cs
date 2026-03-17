@@ -23,15 +23,15 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration
         public Dictionary<string, D_Biome> SelectedBiomeLookup  { get; } = [];
 
 
-
-        public D_Biome GetBiomeAt(int x, int y)
+        #nullable enable
+        public D_Biome? GetBiomeAt(int x, int y)
         {
             string biomeId = BiomeMap.GetBiomeId(x, y);
 
-            if (SelectedBiomeLookup.TryGetValue(biomeId, out D_Biome biome))
-                return biome;
-
-            return null;
+            return SelectedBiomeLookup.TryGetValue(biomeId, out D_Biome? biome)
+                ? biome
+                : null;
         }
+        #nullable disable
     }
 }

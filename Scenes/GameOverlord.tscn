@@ -1,22 +1,33 @@
 [gd_scene format=3 uid="uid://cpqq5uv8e5dbk"]
 
 [ext_resource type="Script" uid="uid://bbm8gmsj1crg0" path="res://Scripts/Camera/FreeCam.cs" id="1_merrj"]
-[ext_resource type="Script" uid="uid://bht23ptlms54m" path="res://Scripts/WorldGeneration/WorldManager.cs" id="1_owq0f"]
+[ext_resource type="Script" uid="uid://bnmy1jyj6nvbe" path="res://Scripts/WorldGeneration/Managers/M_World.cs" id="1_q3s66"]
+[ext_resource type="Script" uid="uid://ddtdaap5nevb8" path="res://Scripts/Terrain/Managers/M_TerrainStreamer.cs" id="2_f2hfv"]
 [ext_resource type="Script" uid="uid://rug6jk7xsnum" path="res://Scripts/Debug/Generation/DB_GenRenderer.cs" id="2_mq2eh"]
-[ext_resource type="Script" uid="uid://blxhg0e6ppoa3" path="res://Scripts/WorldGeneration/SeedControllerUI.cs" id="3_a82ef"]
+[ext_resource type="PackedScene" uid="uid://c4jp8nkb42pn5" path="res://Scenes/TerrainChunk.tscn" id="3_f2hfv"]
 [ext_resource type="Script" uid="uid://brrutxiboxb0o" path="res://Scripts/Debug/Generation/Layers/DB_RegionMapRenderer.cs" id="3_q3s66"]
 [ext_resource type="Script" uid="uid://ri117lhple7k" path="res://Scripts/Debug/Generation/Layers/DB_BiomeMapRenderer.cs" id="4_4ibya"]
 [ext_resource type="Script" uid="uid://b0rk6aki1dolq" path="res://Scripts/Debug/Generation/Layers/DB_BiomeSeedRenderer.cs" id="5_f2hfv"]
 [ext_resource type="Script" uid="uid://b1lartmkhe154" path="res://Scripts/Debug/Generation/Layers/DB_SolidMapRenderer.cs" id="6_q3s66"]
+[ext_resource type="Script" uid="uid://c2rlab48lj0ch" path="res://Scripts/WorldGeneration/UI_SeedController.cs" id="8_q3s66"]
 
 [node name="GameOverlord" type="Node2D" unique_id=1507489134]
 
-[node name="WorldManager" type="Node" parent="." unique_id=533505755]
-script = ExtResource("1_owq0f")
+[node name="M_World" type="Node" parent="." unique_id=533505755]
+script = ExtResource("1_q3s66")
+
+[node name="M_TerrainStreamer" type="Node2D" parent="." unique_id=1756850062 node_paths=PackedStringArray("_worldManager", "_chunkRoot", "_camera")]
+script = ExtResource("2_f2hfv")
+_worldManager = NodePath("../M_World")
+_chunkRoot = NodePath("ChunkRoot")
+_terrainChunkScene = ExtResource("3_f2hfv")
+_camera = NodePath("../Camera2D")
+
+[node name="ChunkRoot" type="Node2D" parent="M_TerrainStreamer" unique_id=1058866564]
 
 [node name="GenerationDebugRenderer" type="Node2D" parent="." unique_id=470613464]
 script = ExtResource("2_mq2eh")
-_worldManagerPath = NodePath("../WorldManager")
+_worldManagerPath = NodePath("../M_World")
 
 [node name="DebugRegionMapRenderer" type="Node2D" parent="GenerationDebugRenderer" unique_id=1928158152]
 script = ExtResource("3_q3s66")
@@ -40,16 +51,16 @@ StartZoom = Vector2(0.030784117, 0.030784117)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1503185587]
 
-[node name="SeedControllerUI" type="Control" parent="UI" unique_id=974471544 node_paths=PackedStringArray("_seedLineEdit", "_randomiseButton", "_regenerateButton", "_worldManger")]
+[node name="SeedControllerUI" type="Control" parent="UI" unique_id=974471544 node_paths=PackedStringArray("_seedLineEdit", "_randomiseButton", "_regenerateButton", "_worldManager")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("3_a82ef")
+script = ExtResource("8_q3s66")
 _seedLineEdit = NodePath("HBoxContainer/SeedLineEdit")
 _randomiseButton = NodePath("HBoxContainer/RandomiseButton")
 _regenerateButton = NodePath("HBoxContainer/RegenerateButton")
-_worldManger = NodePath("../../WorldManager")
+_worldManager = NodePath("../../M_World")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/SeedControllerUI" unique_id=2072696855]
 layout_mode = 0

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c4jp8nkb42pn5"]
+
+[ext_resource type="Script" uid="uid://cjdb3dpeetipc" path="res://Scripts/Terrain/Nodes/TerrainChunk.cs" id="1_jcery"]
+[ext_resource type="TileSet" uid="uid://d3iyfxoi0ejqr" path="res://Assets/Tiles/TileSets/TerrainTileSet.tres" id="2_07l1g"]
+
+[node name="TerrainChunk" type="Node2D" unique_id=747076417 node_paths=PackedStringArray("_terrainLayer")]
+script = ExtResource("1_jcery")
+_terrainLayer = NodePath("TerrainLayer")
+
+[node name="TerrainLayer" type="TileMapLayer" parent="." unique_id=102394233]
+tile_set = ExtResource("2_07l1g")
