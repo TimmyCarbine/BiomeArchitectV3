@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using BiomeArchitectV3.Scripts.WorldGeneration;
+using BiomeArchitectV3.Scripts.WorldGeneration.Managers;
 
 namespace BiomeArchitectV3.Scripts.Debug.Generation
 {
@@ -10,7 +11,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
         [Export] private NodePath _worldManagerPath { get; set; } = null!;
 
         private readonly List<DB_GenLayer> _layers = [];
-        private WorldManager _worldManager = null!;
+        private M_World _worldManager = null!;
 
 
 
@@ -101,7 +102,7 @@ namespace BiomeArchitectV3.Scripts.Debug.Generation
                 return;
             }
 
-            _worldManager = GetNodeOrNull<WorldManager>(_worldManagerPath);
+            _worldManager = GetNodeOrNull<M_World>(_worldManagerPath);
 
             if (_worldManager == null)
             {

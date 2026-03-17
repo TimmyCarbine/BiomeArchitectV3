@@ -4,7 +4,7 @@ using BiomeArchitectV3.Scripts.Core.Math;
 using BiomeArchitectV3.Scripts.Core.World;
 using BiomeArchitectV3.Scripts.WorldGeneration.Data;
 using System.Collections.Generic;
-using BiomeArchitectV3.Scripts.WorldGeneration.Helpers;
+using BiomeArchitectV3.Scripts.WorldGeneration.Logic;
 using System;
 
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
@@ -46,7 +46,7 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Phases
             for (int i = 0; i < orderedBiomes.Count; i++)
             {
                 D_Biome biome = orderedBiomes[i];
-                Vector2I position = U_SeedPosition.FindSeedPosition(context, rng, biome, candidates);
+                Vector2I position = L_SeedPosition.FindSeedPosition(context, rng, biome, candidates);
                 D_BiomeSeed seed = new D_BiomeSeed(biome, position);
                 context.BiomeSeeds.Add(seed);
 

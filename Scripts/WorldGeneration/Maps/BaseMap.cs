@@ -1,3 +1,5 @@
+using BiomeArchitectV3.Scripts.Core.Math;
+
 namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 {
     public abstract class BaseMap<T>
@@ -20,28 +22,32 @@ namespace BiomeArchitectV3.Scripts.WorldGeneration.Maps
 
 
 
-        protected int WrapXCoord(int x)
+        protected int NormalizeX(int x)
         {
             if (!WrapX)
                 return x;
 
-            int m = x % Width;
-            if (m < 0)
-                m += Width;
-            
-            return m;
+            return U_Wrap.WrapX(x, Width);
+        }
+
+
+
+        protected int ClampY(int y)
+        {
+            if (y < 0)
+                return 0;
+            if (y >= Height)
+                return Height - 1;
+
+            return y;
         }
 
 
 
         protected int Index(int x, int y)
         {
-            x = WrapXCoord(x);
-
-            if (y < 0)
-                y = 0;
-            if (y >= Height)
-                y = Height - 1;
+            x = NormalizeX(x);
+            y = ClampY(y);
 
             return y * Width + x;
         }
