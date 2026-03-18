@@ -1,6 +1,6 @@
 namespace BiomeArchitectV3.Scripts.Debug
 {
-    public enum LogType
+    public enum E_LogType
     {
         Error,      // Red      - Critical errors that break expected behaviour
         Warning,    // Yellow   - Unexpected or undesirable behaviou that has not broken the system
